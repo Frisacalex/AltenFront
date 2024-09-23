@@ -1,0 +1,22 @@
+<h1 class="text-center">Liste des produits</h1>
+
+<p-dataView #dv [value]="products()">
+    <ng-template pTemplate="list" let-products>
+        @for (product of products; track product) {
+            <p-card class="block mb-2">
+                <span class="font-medium text-secondary text-sm">{{ product.category }}</span>
+                <img class="block xl:block mx-auto border-round w-full" [src]="'/assets/' + product.image" />
+                <div class="text-lg font-medium text-900 mt-2">{{ product.name }}</div>
+                <div class="text-lg font-small text-900 mt-2">{{ product.description }}</div>
+                <div class="text-lg font-medium text-900 mt-2">{{ product.price + '€'}} </div>
+                <div class="text-lg font-medium text-900 mt-2">{{ product.rating }}
+                    <i class="pi pi-star-fill text-yellow-500"></i>
+                </div>
+                <div class="text-lg font-medium text-900 mt-2">
+                    <div [style.color]="(product.inventoryStatus=='INSTOCK') ? '#1bc43a' : (product.inventoryStatus=='OUTOFSTOCK') ? '#d90f27' : '#d9d90f' ">{{ product.inventoryStatus }}</div>
+                </div>
+                <p-button (click)="addPanier(product)">Ajouter au panier</p-button>
+            </p-card>
+        }
+    </ng-template>
+</p-dataView>
