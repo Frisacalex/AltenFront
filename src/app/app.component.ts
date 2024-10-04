@@ -7,6 +7,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { PanelMenuComponent } from "./shared/ui/panel-menu/panel-menu.component";
 import { BadgeModule } from 'primeng/badge';
 import { Product } from "app/products/data-access/product.model";
+import { ProductsService } from "./products/data-access/products.service";
 
 @Component({
   selector: "app-root",
@@ -16,12 +17,12 @@ import { Product } from "app/products/data-access/product.model";
   imports: [RouterModule, SplitterModule, ToolbarModule , PanelMenuComponent,BadgeModule],
 })
 export class AppComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private productService : ProductsService) {}
   title = "ALTEN SHOP";
   panier: Product[]= []
 
-  versPanier() {
-    this.router.navigateByUrl("panier");
+  getPanierCount () : number {
+    return this.productService.getPanierCount();
   }
 }
 

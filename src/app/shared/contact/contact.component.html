@@ -1,18 +1,21 @@
-<h1 class="text-center">Contact</h1>
-<div class="card flex justify-content-center">
+<div class="formul">
     <form (ngSubmit)="envoieMsg()">
-        Email:
-        <br>
+        <h1>Contact</h1>
+        <hr>
+        <div class="col-6">
+            <label class="label">Email</label>
             <input type="email" name="email" 
-            pInputText size="30" required [(ngModel)]="message.email" />
-        <br>
-        Message (300 caractères):
-        <br>
+            pInputText size="30" required [(ngModel)]="message.email"/>
+        </div>
+        <div class="col-6">
+            <label class="label">Message (300 caractères)</label>
             <textarea rows="6"cols="50" name="contenu" maxlength="300"
-            pInputTextarea [autoResize]="true" required [(ngModel)]="message.contenu" >
+            pInputTextarea [autoResize]="true" required [(ngModel)]="message.contenu">
             </textarea>
-        <br>
-        <p-button type="submit">Valider</p-button>
+        </div>
+        <div class="button">
+            <p-button  type="submit" label="Envoyer" size="large" severity="info"></p-button>
+        </div>
     </form>
 </div>
 <div *ngIf="showMessage" class="card flex justify-content-center" style="color: green;" >Demande de contact envoyée avec succès</div>

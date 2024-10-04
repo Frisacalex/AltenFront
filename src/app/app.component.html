@@ -7,7 +7,7 @@
     </div>
     <div class="p-toolbar-group-end">
         
-        <i class="pi pi-shopping-cart" style="font-size: 2rem; cursor:pointer;" pBadge [value]="panier.length" (click)="versPanier()"></i>
+        <i class="pi pi-shopping-cart" style="font-size: 2rem; cursor:pointer;" pBadge severity="warning" value="{{ getPanierCount() }}" routerLink="/panier"></i>
     </div>
 </p-toolbar>
 <p-splitter 
