@@ -1,22 +1,45 @@
 <h1 class="text-center">Liste des produits</h1>
 
-<p-dataView #dv [value]="products()">
-    <ng-template pTemplate="list" let-products>
-        @for (product of products; track product) {
-            <p-card class="block mb-2">
-                <span class="font-medium text-secondary text-sm">{{ product.category }}</span>
-                <img class="block xl:block mx-auto border-round w-full" [src]="'/assets/' + product.image" />
-                <div class="text-lg font-medium text-900 mt-2">{{ product.name }}</div>
-                <div class="text-lg font-small text-900 mt-2">{{ product.description }}</div>
-                <div class="text-lg font-medium text-900 mt-2">{{ product.price + '€'}} </div>
-                <div class="text-lg font-medium text-900 mt-2">{{ product.rating }}
-                    <i class="pi pi-star-fill text-yellow-500"></i>
+<div class="card">
+    <p-dataView #dv [value]="products()" 
+        [rows]="2" [rowsPerPageOptions]="[2,5,10,20]" [paginator]="true" paginatorPosition="both" 
+        [sortField]="sortField" [sortOrder]="sortOrder">
+        <ng-template pTemplate="header">
+            <div class="flex flex-column md:flex-row md:justify-content-between">
+                <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Tri par prix" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0" />
+            </div>
+        </ng-template>
+        <ng-template pTemplate="list" let-products>
+            @for (product of products; track product) {
+                <p-card class="block mb-2-4">
+                    <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3">
+                        <img class="img-size" [src]="'../../assets/' + product.image" />
+                        <div class="row col-5">
+                            <span class="font-medium text-secondary text-sm">{{ product.category }}</span>
+                            <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
+                                <div class="flex flex-row md:flex-column justify-content-between align-items-start gap-2">
+                                    <div class="text-lg font-medium text-900 mt-2">{{ product.name }}</div>
+                                    <div class="text-lg font-small text-900 mt-2">{{ product.description }}</div>
+                                    <div class="surface-100 p-1" style="border-radius: 30px">
+                                        <div class="surface-0 flex align-items-center gap-2 justify-content-center py-2 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
+                                            <div class="text-lg font-medium text-900 mt-2">{{ product.rating }}
+                                                <i class="pi pi-star-fill text-yellow-500"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-lg font-medium text-900 mt-2">
+                                <div [style.color]="(product.inventoryStatus=='INSTOCK') ? '#1bc43a' : (product.inventoryStatus ==='OUTOFSTOCK') ? '#d90f27' : '#d9d90f' ">{{ product.inventoryStatus }}</div>
+                            </div>
+                        </div>
+                        <div class="flex flex-column md:align-items-center gap-2">
+                            <div class="text-lg font-medium text-900">{{ product.price + '€'}} </div><br>
+                            <p-button icon="pi pi-shopping-cart" label="Ajouter au panier" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'" (click)="addPanier(product)"></p-button>
+                        </div>
                 </div>
-                <div class="text-lg font-medium text-900 mt-2">
-                    <div [style.color]="(product.inventoryStatus=='INSTOCK') ? '#1bc43a' : (product.inventoryStatus=='OUTOFSTOCK') ? '#d90f27' : '#d9d90f' ">{{ product.inventoryStatus }}</div>
-                </div>
-                <p-button (click)="addPanier(product)">Ajouter au panier</p-button>
-            </p-card>
-        }
-    </ng-template>
-</p-dataView>
+                </p-card>
+            }
+        </ng-template>
+    </p-dataView>
+</div>

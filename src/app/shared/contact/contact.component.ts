@@ -26,8 +26,6 @@ export class ContactComponent implements OnInit {
   }
 
   envoieMsg(){
-    console.log(this.message.contenu)
-    console.log(this.message.email)
     // Il faudrait ajouter une requête (database) pour pouvoir mettre le showmessage en true
     this.showMessage = true
 
